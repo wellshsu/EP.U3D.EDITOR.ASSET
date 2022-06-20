@@ -1,0 +1,20 @@
+{
+    "name": "EP.U3D.EDITOR.ASSET",
+    "rootNamespace": "",
+    "references": [
+        "EP.U3D.EDITOR.BASE",
+        "EP.U3D.LIBRARY.BASE",
+        "EP.U3D.LIBRARY.ASSET"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
