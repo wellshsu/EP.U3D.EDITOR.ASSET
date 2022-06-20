@@ -2,7 +2,7 @@
   "name": "ep.u3d.editor.asset",
   "displayName": "EP.U3D.EDITOR.ASSET",
   "description": "Asset editor.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "unity": "2019.2",
   "unityRelease": "0a12",
   "relatedPackages": {},
@@ -17,5 +17,10 @@
     "email": "wellshsu@outlook.com",
     "url": "https://github.com/wellshsu"
   },
-  "type": "tool"
+  "type": "tool",
+  "dependencies": {
+    "ep.u3d.library.base": "0.0.1",
+    "ep.u3d.library.asset": "0.0.2",
+    "ep.u3d.editor.base": "0.0.2"
+  }
 }
