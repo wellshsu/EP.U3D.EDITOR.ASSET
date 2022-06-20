@@ -37,8 +37,19 @@ namespace EP.U3D.EDITOR.ASSET
         [MenuItem(Constants.MENU_PATCH_BUILD_TAG)]
         public static void Invoke3()
         {
-            var worker = Activator.CreateInstance(WorkerType) as BuildTags;
-            worker.RebuileTags();
+            if (EditorApplication.isCompiling)
+            {
+                EditorUtility.DisplayDialog("Warning", "Please wait till compile done.", "OK");
+                return;
+            }
+            else
+            {
+                if (EditorUtility.DisplayDialog("Hint", "Click OK to build assetbundle tag.", "OK", "Cancel"))
+                {
+                    var worker = Activator.CreateInstance(WorkerType) as BuildTags;
+                    worker.RebuileTags();
+                }
+            }
         }
 
         public List<string> doneAssets = new List<string>();
