@@ -2,7 +2,7 @@
   "name": "ep.u3d.editor.asset",
   "displayName": "EP.U3D.EDITOR.ASSET",
   "description": "Asset editor.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "unity": "2019.2",
   "unityRelease": "0a12",
   "relatedPackages": {},

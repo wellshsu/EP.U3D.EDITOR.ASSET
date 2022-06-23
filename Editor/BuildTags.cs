@@ -19,6 +19,13 @@ namespace EP.U3D.EDITOR.ASSET
     public class BuildTags
     {
         public static Type WorkerType = typeof(BuildTags);
+        public static Dictionary<string, string> ScensitiveChar = new Dictionary<string, string>() {
+            { "_", "_"},
+            { " ", ""},
+            { "#", ""},
+            { "[", ""},
+            { "]", ""}
+        };
 
         [MenuItem(Constants.ASSETS_SET_BUNDLE_TAGS)]
         public static void Invoke1()
@@ -53,13 +60,6 @@ namespace EP.U3D.EDITOR.ASSET
         }
 
         public List<string> doneAssets = new List<string>();
-        public Dictionary<string, string> scensitiveChar = new Dictionary<string, string>() {
-            { "_", "_"},
-            { " ", ""},
-            { "#", ""},
-            { "[", ""},
-            { "]", ""}
-        };
 
         public virtual void RebuileTags()
         {
@@ -103,7 +103,7 @@ namespace EP.U3D.EDITOR.ASSET
                 string path = asset;
                 doneAssets.Add(asset);
                 string temp = asset.Substring(0, asset.LastIndexOf("/"));
-                foreach (var item in scensitiveChar)
+                foreach (var item in ScensitiveChar)
                 {
                     if (temp.Contains(item.Key)) Helper.LogWarning("invalid char '{0}' in asset path: {1}", item.Key, asset);
                 }
@@ -111,6 +111,10 @@ namespace EP.U3D.EDITOR.ASSET
                 asset = asset.Substring(assetsDir.Length);
                 asset = asset.Substring(0, asset.LastIndexOf("/"));
                 asset = asset.Replace("\\", "/").Replace("/", "_");
+                foreach (var item in ScensitiveChar)
+                {
+                    asset = asset.Replace(item.Key, item.Value);
+                }
                 asset += Constants.ASSET_BUNDLE_FILE_EXTENSION;
                 asset = asset.ToLower();
                 if (assetImporter)
@@ -142,7 +146,7 @@ namespace EP.U3D.EDITOR.ASSET
                         else
                         {
                             string temp = asset.Substring(0, asset.LastIndexOf("/"));
-                            foreach (var item in scensitiveChar)
+                            foreach (var item in ScensitiveChar)
                             {
                                 if (temp.Contains(item.Key)) Helper.LogWarning("invalid char '{0}' in asset path: {1}", item.Key, asset);
                             }
@@ -150,7 +154,7 @@ namespace EP.U3D.EDITOR.ASSET
                             asset = asset.Substring(assetsDir.Length);
                             asset = asset.Substring(0, asset.LastIndexOf("/"));
                             asset = asset.Replace("\\", "/").Replace("/", "_");
-                            foreach (var item in scensitiveChar)
+                            foreach (var item in ScensitiveChar)
                             {
                                 asset = asset.Replace(item.Key, item.Value);
                             }
@@ -285,7 +289,15 @@ namespace EP.U3D.EDITOR.ASSET
                     string assetPath = AssetDatabase.GetAssetPath(asset);
                     string bundleName = assetPath.Substring("Assets/".Length);
                     bundleName = bundleName.Substring(0, bundleName.LastIndexOf("/"));
+                    foreach (var item in ScensitiveChar)
+                    {
+                        if (bundleName.Contains(item.Key)) Helper.LogWarning("invalid char '{0}' in asset path: {1}", item.Key, asset);
+                    }
                     bundleName = bundleName.Replace("/", "_");
+                    foreach (var item in ScensitiveChar)
+                    {
+                        bundleName = bundleName.Replace(item.Key, item.Value);
+                    }
                     bundleName = bundleName.ToLower();
                     bundleName = bundleName + Constants.ASSET_BUNDLE_FILE_EXTENSION;
                     AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
